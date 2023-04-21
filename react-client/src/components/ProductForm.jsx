@@ -35,8 +35,7 @@ const onSubmitHandler = (e) => {
   e.preventDefault()
 
   axios.post('http://172.19.216.246:8000/api/products/new', newProduct)
-    .then((res) => {
-      // console.log(res.data)
+    .then(() => {
       navigate('/')
     })
     .catch(err => setErrors(err.response.data.errors))
