@@ -33,13 +33,7 @@ const onSubmitHandler = (e) => {
   // Send POST request to API containing newProduct object
   axios.post('http://172.19.216.246:8000/api/products/new', newProduct)
     .then(() => {
-      // On successful resolution, reset 'newProduct' and 'errors' state variables and navigate home to display all products
-      setNewProduct({
-        title: '',
-        price: '',
-        description: ''
-      })
-      setErrors({})
+      // On successful resolution, navigate home to display all products
       navigate('/')
     })
     // In case of failed request, set state variable to store returned errors
