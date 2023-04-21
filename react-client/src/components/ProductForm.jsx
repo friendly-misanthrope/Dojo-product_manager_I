@@ -6,50 +6,44 @@ import { useNavigate } from 'react-router-dom'
 
 const ProductForm = (props) => {
 
+// State to temporarily store new product data
 const [newProduct, setNewProduct] = useState({
   title: '',
   price: '',
   description: ''
 })
 
+// State to store back-end validation errors sent back in response to a failed request
 const [errors, setErrors] = useState({})
 
+// Destructuring newProduct object
 const {title, price, description} = newProduct
 
+// setting up navigation variable
 const navigate = useNavigate()
 
+// onChange Synthetic Event handler
 const onChangeHandler = (e) => {
   setNewProduct(prevState => {return {...prevState, [e.target.name]: e.target.value}})
 }
 
-const validateForm = () => {
-  if (title.length < 3 || title.length > 48 ||
-      price.len < 0 ||
-    description.length < 12 || description.length > 384) {
-      return false
-    }
-    return true
-}
-
+// onSubmit Synthetic Event handler
 const onSubmitHandler = (e) => {
   e.preventDefault()
-
+  // Send POST request to API containing newProduct object
   axios.post('http://172.19.216.246:8000/api/products/new', newProduct)
     .then(() => {
-      navigate('/')
-    })
-    .catch(err => setErrors(err.response.data.errors))
-
-    if (validateForm()) {
+      // On successful resolution, reset 'newProduct' and 'errors' state variables and navigate home to display all products
       setNewProduct({
         title: '',
         price: '',
         description: ''
       })
       setErrors({})
-    }
-
-
+      navigate('/')
+    })
+    // In case of failed request, set state variable to store returned errors
+    .catch(err => setErrors(err.response.data.errors))
 }
 
   return (
@@ -57,7 +51,7 @@ const onSubmitHandler = (e) => {
       <form onSubmit={onSubmitHandler}>
         <div className="form-group">
           <label htmlFor="title">Title: </label>
-          <input type="text" className="form-control" name="title" onChange={onChangeHandler} value={newProduct.title} />
+          <input type="text" className="form-control" name="title" onChange={onChangeHandler} value={title} />
           {
             errors.title ?
             <span className="text-danger">{errors.title.message}</span>
@@ -66,7 +60,7 @@ const onSubmitHandler = (e) => {
         </div>
         <div className="form-group">
           <label htmlFor="price">Price: </label>
-          <input type="text" className="form-control" name="price" onChange={onChangeHandler} value={newProduct.price} />
+          <input type="text" className="form-control" name="price" onChange={onChangeHandler} value={price} />
           {
             errors.price ?
             <span className="text-danger">{errors.price.message}</span>
@@ -75,7 +69,7 @@ const onSubmitHandler = (e) => {
         </div>
         <div className="form-group">
           <label htmlFor="description">Description: </label>
-          <input type="text" className="form-control" name="description" onChange={onChangeHandler} value={newProduct.description} />
+          <input type="text" className="form-control" name="description" onChange={onChangeHandler} value={description} />
           {
             errors.description ?
             <span className="text-danger">{errors.description.message}</span>
