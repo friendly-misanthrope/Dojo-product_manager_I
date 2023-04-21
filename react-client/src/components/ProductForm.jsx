@@ -57,7 +57,7 @@ const onSubmitHandler = (e) => {
     <div className="product-form">
       <form onSubmit={onSubmitHandler}>
         <div className="form-group">
-          <label for="title">Title: </label>
+          <label htmlFor="title">Title: </label>
           <input type="text" className="form-control" name="title" onChange={onChangeHandler} value={newProduct.title} />
           {
             errors.title ?
@@ -66,7 +66,7 @@ const onSubmitHandler = (e) => {
           }
         </div>
         <div className="form-group">
-          <label for="price">Price: </label>
+          <label htmlFor="price">Price: </label>
           <input type="text" className="form-control" name="price" onChange={onChangeHandler} value={newProduct.price} />
           {
             errors.price ?
@@ -75,7 +75,7 @@ const onSubmitHandler = (e) => {
           }
         </div>
         <div className="form-group">
-          <label for="description">Description: </label>
+          <label htmlFor="description">Description: </label>
           <input type="text" className="form-control" name="description" onChange={onChangeHandler} value={newProduct.description} />
           {
             errors.description ?
