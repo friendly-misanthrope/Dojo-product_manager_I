@@ -54,7 +54,7 @@ const onSubmitHandler = (e) => {
         </div>
         <div className="form-group">
           <label htmlFor="price">Price: </label>
-          <input type="text" className="form-control" name="price" onChange={onChangeHandler} value={price} />
+          <input type="number" className="form-control" name="price" onChange={onChangeHandler} value={price} />
           {
             errors.price ?
             <span className="text-danger">{errors.price.message}</span>
