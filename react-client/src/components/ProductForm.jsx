@@ -36,8 +36,7 @@ const onSubmitHandler = (e) => {
 
   axios.post('http://172.19.216.246:8000/api/products/new', newProduct)
     .then((res) => {
-      // ! REMOVE BEFORE SUBMITTING ASSIGNMENT
-      console.log(res.data)
+      // console.log(res.data)
       navigate('/')
     })
     .catch(err => setErrors(err.response.data.errors))
@@ -56,18 +55,33 @@ const onSubmitHandler = (e) => {
 
   return (
     <div className="product-form">
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <div className="form-group">
           <label for="title">Title: </label>
-          <input type="text" className="form-control" name="title" onChange={onChangeHandler} />
+          <input type="text" className="form-control" name="title" onChange={onChangeHandler} value={newProduct.title} />
+          {
+            errors.title ?
+            <span className="text-danger">{errors.title.message}</span>
+            : null
+          }
         </div>
         <div className="form-group">
           <label for="price">Price: </label>
-          <input type="text" className="form-control" name="price" onChange={onChangeHandler} />
+          <input type="text" className="form-control" name="price" onChange={onChangeHandler} value={newProduct.price} />
+          {
+            errors.price ?
+            <span className="text-danger">{errors.price.message}</span>
+            : null
+          }
         </div>
         <div className="form-group">
           <label for="description">Description: </label>
-          <input type="text" className="form-control" name="description" onChange={onChangeHandler} />
+          <input type="text" className="form-control" name="description" onChange={onChangeHandler} value={newProduct.description} />
+          {
+            errors.description ?
+            <span className="text-danger">{errors.description.message}</span>
+            : null
+          }
         </div>
         <input type="submit" value="Submit" />
       </form>
